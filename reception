@@ -1,0 +1,38 @@
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://www.vxweb.net/js/xhr.js"></script>
+    
+</head>
+<body>
+
+<script type="text/javascript">
+		$(document).ready(function(){
+
+			$("#go").click(function(){
+				var id = $("#message_id").val();
+
+				$.ajax({ //Au chargement de la page on effectue une requête AJAX pour recevoir les données et les incorporer dans la page
+					type:"POST",
+					url: "http://www.justpass.fr/ajax/server.php",
+					data: {type:'recevoir', id: id},
+					dataType: 'json',
+					success: function (data) {
+                        
+						$("h1#message").html(data.message);
+						$("p#name").text(data.name);
+					}
+				});
+
+			});
+        }
+</script>
+
+
+
+<div>
+	<label for="message_id">Entrez l'id du message a afficher : </label><input type="text" id="message_id" /><button id="go">VOIR</button>
+	<h1 id="name"></h1>
+	<p id="message"></p>
+</div>
+
+</body>
