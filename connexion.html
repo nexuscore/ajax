@@ -1,0 +1,46 @@
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>   
+</head>
+<body>
+    
+    <!-----------------------------ENVOI DE DONNEE OK // RECEPTION DE DONNEES PAS OK ---------->
+    
+	<script type="text/javascript">
+        
+		$(document).ready(function(){
+
+			$("#send").click(function(){ 
+                //Quand on clique sur envoyer on effectue une requête AJAX pour envoyer les données 
+				var login = $("#login").val();
+				var pass = $("#pass").val();
+                
+				    $.ajax({
+					   type:"POST",
+					   url: "http://www.justpass.fr/ajax/login.php",
+					   data: {login: login, pass: pass},
+					   success: function(msg){ // si l'appel a bien fonctionné
+                           
+				        if(msg==1) 
+				        {
+					   document.location.href="home.html";
+				        }
+				        else // si la connexion en php n'a pas fonctionnée
+				        {
+					       alert('Mdp ou Id erroné');
+				        }
+                       }
+				    })
+                
+			})
+		})
+	</script>
+
+<span id="erreur"></span>
+<input type="text" id="login" placeholder="Entrez votre pseudo" />
+<br />
+<input type="password" id="pass" placeholder="Entrez votre mdp"/>
+<br />n
+<button id="send">Envoyer</button>
+    
+    
+</body>
