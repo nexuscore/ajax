@@ -1,0 +1,64 @@
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+
+<script language=javascript>
+var xx = Math.random(); 
+var xy = Math.random(); 
+var rnumber = Math.round(xx*10);
+var rnumber2 = Math.round(xy*10);
+var goodresultat = rnumber+rnumber2;
+</script>
+    
+	<script type="text/javascript">
+        
+		$(document).ready(function(){
+
+			$("#send").click(function(){ 
+                //Quand on clique sur envoyer on effectue une requête AJAX pour envoyer les données 
+				var login = $("#login").val();
+				var pass = $("#pass").val();
+                var mail = $("#mail").val();
+                var captcha = $("#captcha").val();
+                
+                //Verification du Captcha
+                if(captcha == goodresultat) {
+                    var confirm = true;
+                } else {
+                    var confirm = false;
+                }
+                //Fin Verification du Captcha
+                
+                if (confirm){
+				    $.ajax({
+					   type:"POST",
+					   url: "http://www.justpass.fr/ajax/inscription.php",
+					   data: {type:'envoyer', login: login, pass: pass, mail: mail},
+					   success: function(data) {
+                            document.location.href="connexion.html";
+					   }
+				    })
+                } else {
+                    alert("Marche pas"); 
+                }
+                
+			})
+		})
+	</script>
+
+<span id="erreur"></span>
+<input type="text" id="login" placeholder="Entrez votre pseudo" />
+<br />
+<input type="password" id="pass" placeholder="Entrez votre mdp"/>
+<br />
+<input type="text" id="mail" placeholder="Entrez votre mail"/>
+<br />
+<script>document.write(rnumber +'+'+rnumber2);</script>
+<br />
+<input type="text" id="captcha" placeholder="Resultat de l'addition"/>
+<br />
+<button id="send">Envoyer</button>
+    
+    
+</body>
