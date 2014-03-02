@@ -1,0 +1,45 @@
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+
+
+			$("#send").click(function(){ //Quand on clique sur envoyer on effectue une requête AJAX pour envoyer les données 
+
+				var message = $("#message_text").val();
+				var username = $("#user_name").val();
+
+				$.ajax({
+					type:"POST",
+					url: "http://www.justpass.fr/ajax/server.php",
+					data: {type:'envoyer', message: message, username: username},
+					success: function(data) {
+                        $("span#good").html("Votre message as bien été envoyé !");
+					}
+				})
+			})
+
+		})
+	</script>
+
+
+<span id="good"></span>
+<textarea id="message_text" placeholder="Entrez votre message"></textarea><br />
+<input type="text" id="user_name" placeholder="Entrez votre nom"/>
+<button id="send">Envoyer</button>
+    
+    
+    
+    
+    
+
+
+
+
+
+</body>
